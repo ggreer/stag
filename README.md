@@ -1,4 +1,4 @@
-# STAg: Sublime Text [Ag](https://github.com/ggreer/the_silver_searcher) plugin
+# STAg: Sublime Text [Ag](https://github.com/ggreer/the_silver_searcher) Plugin
 
 ### Development status: ???
 
