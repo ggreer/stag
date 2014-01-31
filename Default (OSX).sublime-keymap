@@ -1,0 +1,6 @@
+[
+	{
+		"keys": ["cmd+shift+alt+f"],
+		"command": "stag_prompt_search"
+	}
+]

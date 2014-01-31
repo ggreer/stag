@@ -1,0 +1,22 @@
+{
+    "schema_version": "2.0",
+    "packages": [
+        {
+            "name": "STAg",
+            "author": "Geoff Greer",
+            "description": "",
+            "details": "https://github.com/ggreer/stag",
+            "homepage": "http://geoff.greer.fm/ag/stag/",
+            "labels": [
+                "code searching"
+            ],
+            "releases": [
+                {
+                    "platforms": ["linux", "osx"],
+                    "sublime_text": "*",
+                    "details": "https://github.com/ggreer/stag/tags"
+                }
+            ]
+        }
+    ]
+}
