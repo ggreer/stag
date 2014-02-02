@@ -1,0 +1,10 @@
+[
+  {
+    "caption": "Stag - Settings",
+    "command": "stag_open_settings"
+  },
+  {
+    "caption": "Stag - Search",
+    "command": "stag_prompt_search"
+  }
+]
