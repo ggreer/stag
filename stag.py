@@ -34,8 +34,22 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
     def is_enabled(self):
         return True
 
+    def get_output_panel(self):
+        if PY2:
+            v = self.window.get_output_panel('Ag')
+        else:
+            v = self.window.create_output_panel('Ag')
+        return v
+
     def run(self, q='', p=None):
+        v = self.get_output_panel()
+
         p = p or self.window.folders()
+        if not p:
+            print('WTF? No paths to search')
+            v.run_command('stag_set_view', {'data': 'WTF? No paths to search.'})
+            return
+
         # TODO: make this a setting
         ag = '/usr/local/bin/ag'
         command = [ag, q]
@@ -45,10 +59,6 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
         stdout, stderr = p.communicate()
         print('stdout: %s' % stdout)
         print('stderr: %s' % stderr)
-        if PY2:
-            v = self.window.get_output_panel('Ag')
-        else:
-            v = self.window.create_output_panel('Ag')
         v.run_command('stag_set_view', {'data': stdout})
 
 
