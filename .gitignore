@@ -1,4 +1,6 @@
 *.pyc
 .DS_store
+.floo*
+.idea*
 .sublime-project
 Stag.sublime-settings
