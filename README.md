@@ -1,5 +1,7 @@
 # STAg: Sublime Text [Ag](https://github.com/ggreer/the_silver_searcher) Plugin
 
+### Search code really really fast.
+
 ### Development status: ???
 
 # Installation instructions

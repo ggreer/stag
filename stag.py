@@ -1,7 +1,15 @@
-import os
+# coding: utf-8
+
+# Lame work-around for Python 2/3 unicode issues
+try:
+    unicode()
+except NameError:
+    unicode = str
+
+#import os
 import subprocess
 import sys
-import threading
+# import threading
 
 import sublime
 import sublime_plugin
@@ -10,11 +18,13 @@ PY2 = sys.version_info < (3, 0)
 
 
 class StagPromptSearchCommand(sublime_plugin.WindowCommand):
-    def run(self, q=''):
+    def run(self, q='', p=None):
         self.window.show_input_panel('Query:', q, self.on_input, None, None)
 
     def on_input(self, q):
-        self.window.run_command('stag_search', {'q': q})
+        self.window.run_command('stag_search', {
+            'q': q,
+        })
 
 
 class StagSearchCommand(sublime_plugin.WindowCommand):
@@ -24,9 +34,10 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
     def is_enabled(self):
         return True
 
-    def run(self, q=''):
+    def run(self, q='', p=None):
+        p = p or self.window.folders()
+        # TODO: make this a setting
         ag = '/usr/local/bin/ag'
-        p = self.window.folders()
         command = [ag, q]
         command += p
         print('Ag command: %s' % ' '.join(command))

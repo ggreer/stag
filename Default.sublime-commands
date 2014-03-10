@@ -4,7 +4,9 @@
     "command": "stag_open_settings"
   },
   {
-    "caption": "Stag - Search",
-    "command": "stag_prompt_search"
+    "caption": "Stag - Search in Project",
+    "command": "stag_prompt_search",
+    "args": {
+    }
   }
 ]
