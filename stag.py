@@ -6,7 +6,7 @@ try:
 except NameError:
     unicode = str
 
-#import os
+# import os
 import subprocess
 import sys
 # import threading
@@ -35,11 +35,13 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
         return True
 
     def get_output_panel(self):
+        if hasattr(self, 'output_panel'):
+            return self.output_panel
         if PY2:
-            v = self.window.get_output_panel('Ag')
+            self.output_panel = self.window.get_output_panel('Ag')
         else:
-            v = self.window.create_output_panel('Ag')
-        return v
+            self.output_panel = self.window.create_output_panel('Ag')
+        return self.output_panel
 
     def run(self, q='', p=None):
         v = self.get_output_panel()
@@ -52,22 +54,28 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
 
         # TODO: make this a setting
         ag = '/usr/local/bin/ag'
-        command = [ag, q]
+        command = [ag, '-C', '--group', q]
         command += p
         print('Ag command: %s' % ' '.join(command))
         p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = p.communicate()
+        stdout = stdout.decode('utf-8')
+        stderr = stderr.decode('utf-8')
         print('stdout: %s' % stdout)
         print('stderr: %s' % stderr)
-        v.run_command('stag_set_view', {'data': stdout})
+        v.run_command('stag_set_view', {
+            'stdout': stdout,
+            'stderr': stderr,
+        })
+        self.window.run_command('show_panel', {'panel': 'output.Ag'})
 
 
 # The new ST3 plugin API sucks
 class StagSetView(sublime_plugin.TextCommand):
-    def run(self, edit, data, *args, **kwargs):
+    def run(self, edit, stdout, stderr, *args, **kwargs):
         size = self.view.size()
         self.view.set_read_only(False)
-        self.view.insert(edit, size, data)
+        self.view.insert(edit, size, stdout)
         self.view.set_read_only(True)
         # TODO: this scrolling is lame and centers text :/
         self.view.show(size)
