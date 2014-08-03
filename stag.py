@@ -38,9 +38,12 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
         if hasattr(self, 'output_panel'):
             return self.output_panel
         if PY2:
-            self.output_panel = self.window.get_output_panel('Ag')
+            v = self.window.get_output_panel('Ag')
         else:
-            self.output_panel = self.window.create_output_panel('Ag')
+            v = self.window.create_output_panel('Ag')
+        v.set_scratch(True)
+        v.set_name('STAg')
+        self.output_panel = v
         return self.output_panel
 
     def run(self, q='', p=None):
@@ -77,7 +80,8 @@ class StagSetView(sublime_plugin.TextCommand):
         self.view.set_read_only(False)
         self.view.insert(edit, size, stdout)
         self.view.set_read_only(True)
-        # TODO: this scrolling is lame and centers text :/
+        self.view.set_scratch(True)
+        self.view.set_name('STAg')
         self.view.show(size)
 
     def is_visible(self):
@@ -88,6 +92,15 @@ class StagSetView(sublime_plugin.TextCommand):
 
     def description(self):
         return
+
+
+class StagClick(sublime_plugin.TextCommand):
+    def run(self, *args, **kwargs):
+        v = self.view
+        if v is None or v.name() != 'STAg':
+            return
+        sel = v.sel()
+        # TODO: parse path and open it
 
 
 class StagOpenSettingsCommand(sublime_plugin.WindowCommand):
