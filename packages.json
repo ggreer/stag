@@ -4,7 +4,7 @@
         {
             "name": "STAg",
             "author": "Geoff Greer",
-            "description": "",
+            "description": "Sublime Text Ag",
             "details": "https://github.com/ggreer/stag",
             "homepage": "http://geoff.greer.fm/ag/stag/",
             "labels": [

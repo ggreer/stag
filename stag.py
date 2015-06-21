@@ -1,20 +1,10 @@
 # coding: utf-8
 
-# Lame work-around for Python 2/3 unicode issues
-try:
-    unicode()
-except NameError:
-    unicode = str
-
 # import os
 import subprocess
-import sys
-# import threading
 
 import sublime
 import sublime_plugin
-
-PY2 = sys.version_info < (3, 0)
 
 
 class StagPromptSearchCommand(sublime_plugin.WindowCommand):
@@ -37,10 +27,7 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
     def get_output_panel(self):
         if hasattr(self, 'output_panel'):
             return self.output_panel
-        if PY2:
-            v = self.window.get_output_panel('Ag')
-        else:
-            v = self.window.create_output_panel('Ag')
+        v = self.window.create_output_panel('Ag')
         v.set_scratch(True)
         v.set_name('STAg')
         self.output_panel = v

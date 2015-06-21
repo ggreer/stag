@@ -24,6 +24,7 @@ If you'd rather create a symlink instead of copy/moving, run something like:
 # Errata
 
 ## Windows
+
 This plugin depends on [ag](https://github.com/ggreer/the_silver_searcher), which does not compile on Windows. Sorry.
 
 ## Linux
