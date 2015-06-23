@@ -45,9 +45,8 @@ class StagSearchCommand(sublime_plugin.WindowCommand):
         # TODO: make this a setting
         ag = '/usr/local/bin/ag'
         command = [ag, '-C', '--group', q]
-        command += p
         print('Ag command: %s' % ' '.join(command))
-        p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=p)
         stdout, stderr = p.communicate()
         stdout = stdout.decode('utf-8')
         stderr = stderr.decode('utf-8')
