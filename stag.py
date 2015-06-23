@@ -69,6 +69,8 @@ class StagSetView(sublime_plugin.TextCommand):
         self.view.set_scratch(True)
         self.view.set_name('STAg')
         self.view.show(size)
+        view_settings = self.view.settings()
+        view_settings.set('result_file_regex', r'(^([a-zA-Z]:)?([\\/][a-zA-Z0-9._-]+)+([\\/])?)')
 
     def is_visible(self):
         return False
